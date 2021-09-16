@@ -3,11 +3,11 @@
 // the goal is for little global code as possible!
 // the 'Module' pattern wraps the factory in an IIFE
 
-// player object (factory function (IIFE?))
+// player object (factory function (NOT AN IIFE?))
 
 // gameBoard (array) (Module) (IIFE?)
 const gameBoard = (() => {
-    let board = []
+    let board = []  // reads as length of 9
      
     // 'DOM "cache"'/ quick lookup
     let gameBoardContainer = document.querySelector('#game-board-container')
@@ -15,6 +15,7 @@ const gameBoard = (() => {
     renderDisplay()
 
     function renderDisplay() {
+        clearDisplay()
         for (let i = 0; i < 9; i++) {
             board[i] = document.createElement('div')
             board[i].classList.add('gameBoard-divs')
@@ -24,6 +25,11 @@ const gameBoard = (() => {
     }
     function divClick() {
         console.log('clicked')
+    }
+    function clearDisplay() {
+        while (gameBoardContainer.firstChild) {
+            gameBoardContainer.removeChild(gameBoardContainer.firstChild)
+        }
     }
     return {
         renderDisplay: renderDisplay

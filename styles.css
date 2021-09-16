@@ -33,6 +33,7 @@ main {
     height: 300px;
     width: 300px;
     border-radius: 10px;
+    background-color: darkgray;
     box-shadow: 0px 0px 20px 4px rgb(84,84,84);
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
@@ -41,7 +42,11 @@ main {
     display: inline-grid;
     border: 0.25px solid red;
     margin: 0.5px;
+    background-color: lightgray;
     border-radius: 8px;
+}
+.gameBoard-divs:hover {
+    background-color: gainsboro;
 }
 footer {
     bottom: 0;
