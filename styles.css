@@ -1,5 +1,5 @@
 html, body {
-    font-family: 'Times New Roman', Times, serif;
+    font-family: 'system-ui', Times, serif;
     margin: 0;
     padding: 0;
     text-align: center;
@@ -18,6 +18,32 @@ header > h1 {
     margin: 0;
     padding: 17px;
 }
+aside {
+    position: fixed;
+    border: 3px solid rgb(169, 19, 19);
+    border-left: none;
+    background-color: rgb(235, 229, 229);
+    height: 60%;
+    width: 18%;
+    padding: 6px;
+    margin: 0;
+    border-radius: 0 5px 5px 0;
+}
+#clear-gameBoard-btn {
+    background-color: rgb(169, 19, 19);
+    border: 0.25px solid rgb(169, 19, 19);
+    border-radius: 4px;
+    padding: 5px;
+    color: white;
+    cursor: pointer;
+}
+#clear-gameBoard-btn:hover {
+    box-shadow: 0px 0px 5px 0px rgb(182, 30, 30);
+}
+#clear-gameBoard-btn:active {
+    transform: translateY(2px);
+    transition: 0.25s;
+}
 main {
     margin: 0;
     padding: 0;
@@ -26,7 +52,7 @@ main {
 }
 #game-board-container {
     margin: 100px 0 125px 0;
-    padding: 3px;
+    padding: 10px;
     margin-inline: auto;
     display: grid;
     overflow: auto;
@@ -44,6 +70,8 @@ main {
     margin: 0.5px;
     background-color: lightgray;
     border-radius: 8px;
+    align-content: center;
+    font-size: xxx-large;
 }
 .gameBoard-divs:hover {
     background-color: gainsboro;
