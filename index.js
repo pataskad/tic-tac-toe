@@ -13,8 +13,6 @@ const gameBoard = (() => {
     // 'DOM "cache"'/ quick lookup
     const gameBoardContainer = document.querySelector('#game-board-container')
 
-    renderDisplay()
-
     function renderDisplay() {
         for (let i = 0; i < 9; i++) {
             board[i] = document.createElement('div')
@@ -36,7 +34,7 @@ const gameBoard = (() => {
             }
         }
     })
-    return {    }
+    return { renderDisplay: renderDisplay}
 })()
 
 // display controller (to control flow of the game) (Module)
@@ -46,6 +44,8 @@ const displayController = (() => {
     // reset display to new game upon a button click
     
     // DOM 'cache'
+    
+    gameBoard.renderDisplay()
 
     function clearBoard() {
         let board = document.querySelectorAll('.gameBoard-divs')
