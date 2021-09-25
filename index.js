@@ -3,7 +3,18 @@
 // the goal is for little global code as possible!
 // the 'Module' pattern wraps the factory in an IIFE
 
-// player object (factory function (NOT AN IIFE?))
+// player object (factory function (NOT AN IIFE typically), use 'function' instead of const shorthand?)
+/* const Player = (name) => {
+    const playerName = () => name
+
+    const showName = () => {
+        console.log('this function works!')
+        console.log(playerName)
+    }
+    return {
+        showName, playerName,
+    }
+} */
 
 // gameBoard (array) (Module) (IIFE?)
 const gameBoard = (() => {
@@ -20,6 +31,12 @@ const gameBoard = (() => {
             gameBoardContainer.appendChild(board[i])
         }
     }
+    function clearBoard() {
+        const board = document.querySelectorAll('.gameBoard-divs')
+        for (let i = 0; i < board.length; i++) {
+            board[i].textContent = ''
+        }
+    }
     document.addEventListener('click', (e) => {
         if (e.target.matches('.gameBoard-divs')) {
             if (e.target.textContent == '') {
@@ -33,7 +50,9 @@ const gameBoard = (() => {
             }
         }
     })
-    return { renderDisplay: renderDisplay}
+    return { 
+        renderDisplay, clearBoard,
+     }
 })()
 
 // display controller (to control flow of the game) (Module)
@@ -46,15 +65,9 @@ const displayController = (() => {
     const page = document.querySelector('#modal-wrapper')
     const playerOneInput = document.querySelector('#player-one')
     const playerTwoInput = document.querySelector('#player-two')
-    
+
     gameBoard.renderDisplay()
 
-    function clearBoard() {
-        let board = document.querySelectorAll('.gameBoard-divs')
-        for (let i = 0; i < board.length; i++) {
-            board[i].textContent = ''
-        }
-    }
     function showModal() {
         modal.style.display = 'block'
         page.classList.add('blur-background')
@@ -67,7 +80,7 @@ const displayController = (() => {
     }
     document.addEventListener('click', (e) => {
         if (e.target.matches('#clear-gameBoard-btn')) {
-            clearBoard()
+            gameBoard.clearBoard()
         }
         if (e.target.matches('#player-add')) {
             showModal()
@@ -80,6 +93,6 @@ const displayController = (() => {
         }
     })
     return {
-        clearBoard: clearBoard,
+        showModal, modalCancel,
     }
 })()
