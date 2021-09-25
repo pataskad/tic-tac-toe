@@ -10,7 +10,6 @@ const gameBoard = (() => {
     let board = []  // reads as length of 9 when rendered
     let gamePiece = 'X'
      
-    // 'DOM "cache"'/ quick lookup
     const gameBoardContainer = document.querySelector('#game-board-container')
 
     function renderDisplay() {
@@ -41,9 +40,12 @@ const gameBoard = (() => {
 const displayController = (() => {
     // check for win conditions, three in a row/tie
     // show winning message (modal?)
-    // reset display to new game upon a button click
     
     // DOM 'cache'
+    const modal = document.querySelector('.modal-container')
+    const page = document.querySelector('#modal-wrapper')
+    const playerOneInput = document.querySelector('#player-one')
+    const playerTwoInput = document.querySelector('#player-two')
     
     gameBoard.renderDisplay()
 
@@ -53,9 +55,28 @@ const displayController = (() => {
             board[i].textContent = ''
         }
     }
+    function showModal() {
+        modal.style.display = 'block'
+        page.classList.add('blur-background')
+    }
+    function modalCancel() {
+        page.classList.remove('blur-background')
+        modal.style.display = 'none'
+        playerOneInput.value = ''
+        playerTwoInput.value = ''
+    }
     document.addEventListener('click', (e) => {
         if (e.target.matches('#clear-gameBoard-btn')) {
             clearBoard()
+        }
+        if (e.target.matches('#player-add')) {
+            showModal()
+        }
+        if (e.target.matches('.close-button')) {
+            modalCancel()
+        }
+        if (e.target == modal) {
+            modalCancel()
         }
     })
     return {

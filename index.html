@@ -11,35 +11,39 @@
 </head>
 <body>
     <div class="modal-container">
-        <span class="close-button">&times;</span>
-        <h3>Add Players</h3>
-        <form action="#" id="add-players-form">
-            <label class="form-labels" for="player-one">Player One:</label>
-            <input class="form-control" type="text" name="player-one" placeholder="Enter Player Name..." id="player-one">
-            <label class="form-labels" for="player-two">Player Two:</label>
-            <input class="form-control" type="text" name="player-two" id="player-two" placeholder="Enter Player Name...">
-        </form>
-        <input type="submit" id="form-btn-submit" value="Update Players">
-    </div>
-    <header>
-        <h1>Tic Tac Toe</h1>
-    </header>
-    <aside>
-        <button id="player-add" class="buttons-panel">New Players</button> <!--Brings modal up (form)-->
-        <button id="clear-gameBoard-btn" class="buttons-panel">Clear Game Board</button>
-        <div class="players">
-            <h1>Player 1:</h1>
-            <div id="player1" class="player-contents">Placeholder 1</div>
-            <h1>Player 2:</h1>
-            <div id="player2" class="player-contents">Placeholder 2</div>
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h3>Add Players Form</h3>
+            <form action="#" id="add-players-form">
+                <label class="form-labels" for="player-one">Player One:</label>
+                <input class="form-control" type="text" name="player-one" placeholder="Enter Player One Name..." id="player-one">
+                <label class="form-labels" for="player-two">Player Two:</label>
+                <input class="form-control" type="text" name="player-two" id="player-two" placeholder="Enter Player Two Name...">
+            </form>
+            <input type="submit" id="form-submit-btn" value="Update Players">
         </div>
-    </aside>
-    <main>
-        <p>Do you have what it takes to be a Tic Tac Toe master?</p>
-        <div id="game-board-container"></div>
-    </main>
-    <footer>
-        <h1>Made By: <a href="https://github.com/pataskad">Dallas Pataska</a></h1>
-    </footer>
+    </div>
+    <div id="modal-wrapper">
+        <header>
+            <h1>Tic Tac Toe</h1>
+        </header>
+        <aside>
+            <button id="player-add" class="buttons-panel">New Players</button> <!--Brings modal up (form)-->
+            <button id="clear-gameBoard-btn" class="buttons-panel">Clear Game Board</button>
+            <div class="players">
+                <h1>Player 1:</h1>
+                <div id="player1" class="player-contents">Placeholder 1</div>
+                <h1>Player 2:</h1>
+                <div id="player2" class="player-contents">Placeholder 2</div>
+            </div>
+        </aside>
+        <main>
+            <p>Do you have what it takes to be a Tic Tac Toe master?</p>
+            <div id="game-board-container"></div>
+        </main>
+        <footer>
+            <h1>Made By: <a href="https://github.com/pataskad">Dallas Pataska</a></h1>
+        </footer>
+    </div>
 </body>
 </html>
