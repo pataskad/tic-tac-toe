@@ -1,5 +1,5 @@
 html, body {
-    font-family: 'system-ui', Times, serif;
+    font-family: 'sans-serif', system-ui, serif;
     margin: 0;
     padding: 0;
     text-align: center;
@@ -73,6 +73,26 @@ aside {
 #clear-gameBoard-btn:active {
     transform: translateY(2px);
     transition: 0.25s;
+}
+.modal-container {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    width: 100%;
+    overflow: auto;
+}
+.close-button {
+    color: rgb(75, 46, 46);
+    float: right;
+    cursor: pointer;
+    font-size: 28px;
+    font-weight: bold;
+}
+.close-button:hover, 
+.close-button:focus {
+    color: red;
+    text-decoration: none;
+    cursor: pointer;
 }
 main {
     margin: 0;
