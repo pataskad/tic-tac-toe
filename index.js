@@ -95,6 +95,7 @@ const displayController = (() => {
         modal.style.display = 'none'
         playerOneInput.value = ''
         playerTwoInput.value = ''
+        document.querySelector('#error-handler').textContent = ''
     }
     document.addEventListener('click', (e) => {
         if (e.target.matches('#clear-gameBoard-btn')) {
@@ -107,8 +108,13 @@ const displayController = (() => {
             modalCancel()
         }
         if (e.target.matches('#form-submit-btn')) {
-            setAndShowNames()
-            modalCancel()
+            if (playerOneInput.value == '' && playerTwoInput.value == '') {
+                document.querySelector('#error-handler').textContent = '* Please enter at least one player name *'
+                playerOneInput.focus()
+            } else {
+                setAndShowNames()
+                modalCancel()
+            }
         }
         if (e.target == modal) {
             modalCancel()

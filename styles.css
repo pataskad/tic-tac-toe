@@ -55,6 +55,10 @@ aside {
     transform: translateY(2px);
     transition: 0.25s;
 }
+#error-handler {
+    font-size: 13px;
+    color: red;
+}
 #clear-gameBoard-btn {
     background-color: rgb(169, 19, 19);
     border: 0.25px solid rgb(169, 19, 19);
