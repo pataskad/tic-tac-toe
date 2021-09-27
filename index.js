@@ -4,17 +4,19 @@
 // the 'Module' pattern wraps the factory in an IIFE
 
 // player object (factory function (NOT AN IIFE typically), use 'function' instead of const shorthand?)
-/* const Player = (name) => {
-    const playerName = () => name
-
-    const showName = () => {
-        console.log('this function works!')
-        console.log(playerName)
+const Player = name => {
+    const sayPlayerOne = () => {
+        const playerOneValue = document.querySelector('#player1')
+        playerOneValue.textContent = name//document.querySelector('#player-one').value
+    }
+    const sayPlayerTwo = () => {
+        const playerTwoValue = document.querySelector('#player2')
+        playerTwoValue.textContent = name//document.querySelector('#player-two').value
     }
     return {
-        showName, playerName,
+        sayPlayerOne, sayPlayerTwo,
     }
-} */
+}
 
 // gameBoard (array) (Module) (IIFE?)
 const gameBoard = (() => {
@@ -43,9 +45,12 @@ const gameBoard = (() => {
                 if (gamePiece === 'X') {
                     e.target.textContent = gamePiece
                     gamePiece = 'O'
+                    // run win condition test, include test for when all squares marked, but no winner
+
                 } else {
                     e.target.textContent = gamePiece
                     gamePiece = 'X'
+                    // run win condition test, include test for when all squares marked, but no winner
                 }
             }
         }
@@ -68,6 +73,19 @@ const displayController = (() => {
 
     gameBoard.renderDisplay()
 
+    function setAndShowNames() {
+        // allows for users to only update one players name depending on which fields are submitted 
+        let playerOne = Player(playerOneInput.value)
+        let playerTwo = Player(playerTwoInput.value)
+        if (playerOneInput.value == '' && playerTwoInput.value !== '') {
+            playerTwo.sayPlayerTwo()
+        } else if (playerTwoInput.value == '' && playerOneInput.value !== '') {
+            playerOne.sayPlayerOne()
+        } else if (playerOneInput.value !== '' && playerTwoInput.value !== '') {
+            playerOne.sayPlayerOne()
+            playerTwo.sayPlayerTwo()
+        }
+    }
     function showModal() {
         modal.style.display = 'block'
         page.classList.add('blur-background')
@@ -88,11 +106,15 @@ const displayController = (() => {
         if (e.target.matches('.close-button')) {
             modalCancel()
         }
+        if (e.target.matches('#form-submit-btn')) {
+            setAndShowNames()
+            modalCancel()
+        }
         if (e.target == modal) {
             modalCancel()
         }
     })
     return {
-        showModal, modalCancel,
+        showModal, modalCancel, setAndShowNames,
     }
 })()

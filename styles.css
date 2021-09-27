@@ -23,7 +23,7 @@ aside {
     border: 3px solid rgb(169, 19, 19);
     border-left: none;
     background-color: rgb(235, 229, 229);
-    /* width: 18%; */
+    max-width: 18%;
     padding: 10px 20px 10px 3px;
     margin: 150px 0 0 0;
     border-radius: 0 5px 5px 0;
@@ -35,7 +35,7 @@ aside {
 }
 .player-contents {
     margin-top: 15px;
-    overflow-wrap: normal;
+    overflow: auto;
 }
 #player-add {
     top: 7px;
