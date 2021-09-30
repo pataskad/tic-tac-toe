@@ -1,24 +1,20 @@
 "use strict"
 
-// the goal is for little global code as possible!
-// the 'Module' pattern wraps the factory in an IIFE
-
-// player object (factory function (NOT AN IIFE typically), use 'function' instead of const shorthand?)
 const Player = name => {
     const sayPlayerOne = () => {
         const playerOneValue = document.querySelector('#player1')
-        playerOneValue.textContent = name//document.querySelector('#player-one').value
+        playerOneValue.textContent = name
+        let marker = 'X'
     }
     const sayPlayerTwo = () => {
         const playerTwoValue = document.querySelector('#player2')
-        playerTwoValue.textContent = name//document.querySelector('#player-two').value
+        playerTwoValue.textContent = name
+        let marker = 'O'
     }
     return {
         sayPlayerOne, sayPlayerTwo,
     }
 }
-
-// gameBoard (array) (Module) (IIFE?)
 const gameBoard = (() => {
     let board = []  // reads as length of 9 when rendered
     let gamePiece = 'X'
@@ -29,8 +25,26 @@ const gameBoard = (() => {
         for (let i = 0; i < 9; i++) {
             board[i] = document.createElement('div')
             board[i].classList.add('gameBoard-divs')
-            board[i].id = `${board.indexOf(board[i]) + 1}`
+            board[i].id = `${board.indexOf(board[i])}`
             gameBoardContainer.appendChild(board[i])
+        }
+    }
+    function checkScore() {
+        const winConditions = [
+            [0, 1, 2], 
+            [3, 4, 5], 
+            [6, 7, 8], 
+            [0, 3, 6], 
+            [1, 4, 7], 
+            [2, 5, 8], 
+            [0, 4, 8], 
+            [6, 4, 2],
+        ]
+        for (let i = 0; i < winConditions.length; i++) {
+            for (let j = 0; j < winConditions[i].length; j++) {
+                // check for win conditions
+                // track by id??
+            }
         }
     }
     function clearBoard() {
@@ -45,25 +59,20 @@ const gameBoard = (() => {
                 if (gamePiece === 'X') {
                     e.target.textContent = gamePiece
                     gamePiece = 'O'
-                    // run win condition test, include test for when all squares marked, but no winner
-
                 } else {
                     e.target.textContent = gamePiece
                     gamePiece = 'X'
-                    // run win condition test, include test for when all squares marked, but no winner
                 }
+                checkScore()
             }
         }
     })
     return { 
-        renderDisplay, clearBoard,
+        renderDisplay, clearBoard, checkScore,
      }
 })()
 
-// display controller (to control flow of the game) (Module)
 const displayController = (() => {
-    // check for win conditions, three in a row/tie
-    // show winning message (modal?)
     
     // DOM 'cache'
     const modal = document.querySelector('.modal-container')
@@ -74,7 +83,6 @@ const displayController = (() => {
     gameBoard.renderDisplay()
 
     function setAndShowNames() {
-        // allows for users to only update one players name depending on which fields are submitted 
         let playerOne = Player(playerOneInput.value)
         let playerTwo = Player(playerTwoInput.value)
         if (playerOneInput.value == '' && playerTwoInput.value !== '') {
