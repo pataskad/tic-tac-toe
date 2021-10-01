@@ -18,6 +18,17 @@ const Player = name => {
 const gameBoard = (() => {
     let board = []  // reads as length of 9 when rendered
     let gamePiece = 'X'
+    const winningConditions = [
+        [0, 1, 2], 
+        [3, 4, 5], 
+        [6, 7, 8], 
+        [0, 3, 6], 
+        [1, 4, 7], 
+        [2, 5, 8], 
+        [0, 4, 8], 
+        [6, 4, 2],
+    ]
+    let gameState = ["", "", "", "", "", "", "", "", ""]
      
     const gameBoardContainer = document.querySelector('#game-board-container')
 
@@ -30,21 +41,23 @@ const gameBoard = (() => {
         }
     }
     function checkScore() {
-        const winConditions = [
-            [0, 1, 2], 
-            [3, 4, 5], 
-            [6, 7, 8], 
-            [0, 3, 6], 
-            [1, 4, 7], 
-            [2, 5, 8], 
-            [0, 4, 8], 
-            [6, 4, 2],
-        ]
-        for (let i = 0; i < winConditions.length; i++) {
-            for (let j = 0; j < winConditions[i].length; j++) {
-                // check for win conditions
-                // track by id??
+        let roundWon = false
+        for (let i = 0; i < winningConditions.length; i++) {
+            const winConditions = winningConditions[i]
+            let a = gameState[winConditions[0]]
+            let b = gameState[winConditions[1]]
+            let c = gameState[winConditions[2]]
+            if (a === '' || b === '' || c === '') {
+                continue
             }
+            if (a === b && b === c) {
+                roundWon = true
+                break
+            }
+        }
+        if (roundWon) {
+            // return winning display
+            // return
         }
     }
     function clearBoard() {
