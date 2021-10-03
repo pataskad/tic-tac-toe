@@ -4,9 +4,9 @@
 
 # Learning Outcomes #
 
-The 'Tic Tac Toe' project, based from within the 'The Odin Project' curriculum, is the first pass at writing more efficient JavaScript code utilizing methods such as revealing module patterns to make effective use of closures, factory functions where necessary to create new objects, and overall improved code structure to continue preparing for large scale applications within the professional development industry.
+The 'Tic Tac Toe' project, based from within the 'The Odin Project' curriculum, is my another step in further expanding my expertise when it comes to JavaScript and all it has to offer.  This project focuses on primarily working with Factory Functions, Modules, and IIFE's while making them communicate to become a more efficient and industry grade codebase to generate this tic tac toe game.  This project will occasionally be updated and refactored as I learn more and continue to grow as a developer.  
 
-In addition, this project will continue to enhance my overall design and implementation skills as well as speed to better prepare for professional workloads.
+Additionally, while simple in concept this kind of project is another stepping stone in solidifying core JavaScript fundamental concepts that are important to understand and implement to be successful and respected within the industry, plus they are fascinating!
 
 # Running Locally #
 
