@@ -4,19 +4,17 @@ const Player = name => {
     const sayPlayerOne = () => {
         const playerOneValue = document.querySelector('#player1')
         playerOneValue.textContent = name
-        let marker = 'X'
     }
     const sayPlayerTwo = () => {
         const playerTwoValue = document.querySelector('#player2')
         playerTwoValue.textContent = name
-        let marker = 'O'
     }
     return {
         sayPlayerOne, sayPlayerTwo,
     }
 }
 const gameBoard = (() => {
-    let board = []  // reads as length of 9 when rendered
+    let board = [] 
     let gamePiece = 'X'
     const winningConditions = [
         [0, 1, 2], 
@@ -42,11 +40,11 @@ const gameBoard = (() => {
     }
     function checkScore() {
         let roundWon = false
-        for (let i = 0; i < winningConditions.length; i++) {
-            const winConditions = winningConditions[i]
-            let a = gameState[winConditions[0]]
-            let b = gameState[winConditions[1]]
-            let c = gameState[winConditions[2]]
+        for (let i = 0; i < 7; i++) {
+            const winCondition = winningConditions[i]
+            let a = gameState[winCondition[0]]
+            let b = gameState[winCondition[1]]
+            let c = gameState[winCondition[2]]
             if (a === '' || b === '' || c === '') {
                 continue
             }
@@ -56,15 +54,19 @@ const gameBoard = (() => {
             }
         }
         if (roundWon) {
-            // return winning display
-            // return
+            displayController.showWinModal()
+            console.log('Win!')
+            return
+        }
+        let roundDraw = !gameState.includes("")
+        if (roundDraw) {
+            // add draw result modal and logic 
+            console.log('Draw!')
         }
     }
     function clearBoard() {
-        const board = document.querySelectorAll('.gameBoard-divs')
-        for (let i = 0; i < board.length; i++) {
-            board[i].textContent = ''
-        }
+        document.querySelectorAll('.gameBoard-divs').forEach(board => board.textContent = "")
+        gameState = ["", "", "", "", "", "", "", "", ""]
     }
     document.addEventListener('click', (e) => {
         if (e.target.matches('.gameBoard-divs')) {
@@ -72,9 +74,13 @@ const gameBoard = (() => {
                 if (gamePiece === 'X') {
                     e.target.textContent = gamePiece
                     gamePiece = 'O'
+                    gameState.splice(e.target.id, 1, e.target.textContent) // adds player selection to gameState
+                    console.log(gameState)
                 } else {
                     e.target.textContent = gamePiece
                     gamePiece = 'X'
+                    gameState.splice(e.target.id, 1, e.target.textContent) // adds player selection to gameState
+                    console.log(gameState)
                 }
                 checkScore()
             }
@@ -89,11 +95,21 @@ const displayController = (() => {
     
     // DOM 'cache'
     const modal = document.querySelector('.modal-container')
+    const winModal = document.querySelector('.modal-win-container')
     const page = document.querySelector('#modal-wrapper')
     const playerOneInput = document.querySelector('#player-one')
     const playerTwoInput = document.querySelector('#player-two')
 
     gameBoard.renderDisplay()
+
+    const winningMessage = () => { // add to winning message
+        if (gamePiece === 'X') {
+            `Player ${playerOne} has won!`
+        } else if (gamePiece === 'O') {
+            `Player ${playerTwo} has won!`
+        }
+    }
+    const drawMessage = () => 'Game has ended in a draw'
 
     function setAndShowNames() {
         let playerOne = Player(playerOneInput.value)
@@ -107,13 +123,18 @@ const displayController = (() => {
             playerTwo.sayPlayerTwo()
         }
     }
-    function showModal() {
+    function showPlayerModal() {
         modal.style.display = 'block'
+        page.classList.add('blur-background')
+    }
+    function showWinModal() {
+        winModal.style.display = 'block'
         page.classList.add('blur-background')
     }
     function modalCancel() {
         page.classList.remove('blur-background')
         modal.style.display = 'none'
+        winModal.style.display = 'none'
         playerOneInput.value = ''
         playerTwoInput.value = ''
         document.querySelector('#error-handler').textContent = ''
@@ -123,10 +144,15 @@ const displayController = (() => {
             gameBoard.clearBoard()
         }
         if (e.target.matches('#player-add')) {
-            showModal()
+            showPlayerModal()
         }
         if (e.target.matches('.close-button')) {
-            modalCancel()
+            if (winModal.style.display = 'block') {
+                modalCancel()
+                gameBoard.clearBoard()
+            } else {
+                modalCancel()  
+            }
         }
         if (e.target.matches('#form-submit-btn')) {
             if (playerOneInput.value == '' && playerTwoInput.value == '') {
@@ -140,8 +166,12 @@ const displayController = (() => {
         if (e.target == modal) {
             modalCancel()
         }
+        if (e.target == winModal) {
+            modalCancel()
+            gameBoard.clearBoard()
+        }
     })
     return {
-        showModal, modalCancel, setAndShowNames,
+        showPlayerModal, showWinModal, modalCancel, setAndShowNames, winningMessage, drawMessage,
     }
 })()
