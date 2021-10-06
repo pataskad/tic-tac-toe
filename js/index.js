@@ -17,6 +17,7 @@ const gameBoard = (() => {
     let board = [] 
     let winningMarker = ''
     let gamePiece = 'X'
+    let gameState = ["", "", "", "", "", "", "", "", ""]
     const winningConditions = [
         [0, 1, 2], 
         [3, 4, 5], 
@@ -27,8 +28,7 @@ const gameBoard = (() => {
         [0, 4, 8], 
         [6, 4, 2],
     ]
-    let gameState = ["", "", "", "", "", "", "", "", ""]
-     
+
     const gameBoardContainer = document.querySelector('#game-board-container')
     const result = document.querySelector('#result-message')
 
@@ -74,10 +74,6 @@ const gameBoard = (() => {
         }
         result.textContent = message
     }
-    function drawMessage() {
-        'Game has ended in a draw' 
-    }
-    
     function clearBoard() {
         document.querySelectorAll('.gameBoard-divs').forEach(board => board.textContent = "")
         gameState = ["", "", "", "", "", "", "", "", ""]
@@ -100,7 +96,7 @@ const gameBoard = (() => {
         }
     })
     return { 
-        renderDisplay, clearBoard, checkScore, winningMessage, drawMessage,
+        renderDisplay, clearBoard, checkScore, winningMessage,
      }
 })()
 
@@ -137,7 +133,6 @@ const displayController = (() => {
         gameBoard.winningMessage()
     }
     function showDrawModal() {
-        gameBoard.drawMessage()
         drawModal.style.display = 'block'
         page.classList.add('blur-background')
     }
