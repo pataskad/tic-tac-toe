@@ -15,6 +15,7 @@ const Player = name => {
 }
 const gameBoard = (() => {
     let board = [] 
+    let winningMarker = ''
     let gamePiece = 'X'
     const winningConditions = [
         [0, 1, 2], 
@@ -29,6 +30,7 @@ const gameBoard = (() => {
     let gameState = ["", "", "", "", "", "", "", "", ""]
      
     const gameBoardContainer = document.querySelector('#game-board-container')
+    const result = document.querySelector('#result-message')
 
     function renderDisplay() {
         for (let i = 0; i < 9; i++) {
@@ -50,23 +52,36 @@ const gameBoard = (() => {
             }
             if (a === b && b === c) {
                 roundWon = true
+                winningMarker = a
                 break
             }
         }
         if (roundWon) {
             displayController.showWinModal()
-            console.log('Win!')
             return
         }
         let roundDraw = !gameState.includes("")
         if (roundDraw) {
-            // add draw result modal and logic 
-            console.log('Draw!')
+            displayController.showDrawModal()
         }
     }
+    function winningMessage() {
+        let message = ''
+        if (winningMarker == 'X') {
+            message = 'Player X wins the game!'
+        }  else if (winningMarker == 'O') {
+            message = 'Player O wins the game!'
+        }
+        result.textContent = message
+    }
+    function drawMessage() {
+        'Game has ended in a draw' 
+    }
+    
     function clearBoard() {
         document.querySelectorAll('.gameBoard-divs').forEach(board => board.textContent = "")
         gameState = ["", "", "", "", "", "", "", "", ""]
+        gamePiece = 'X'
     }
     document.addEventListener('click', (e) => {
         if (e.target.matches('.gameBoard-divs')) {
@@ -75,41 +90,30 @@ const gameBoard = (() => {
                     e.target.textContent = gamePiece
                     gamePiece = 'O'
                     gameState.splice(e.target.id, 1, e.target.textContent) // adds player selection to gameState
-                    console.log(gameState)
                 } else {
                     e.target.textContent = gamePiece
                     gamePiece = 'X'
-                    gameState.splice(e.target.id, 1, e.target.textContent) // adds player selection to gameState
-                    console.log(gameState)
+                    gameState.splice(e.target.id, 1, e.target.textContent)
                 }
                 checkScore()
             }
         }
     })
     return { 
-        renderDisplay, clearBoard, checkScore,
+        renderDisplay, clearBoard, checkScore, winningMessage, drawMessage,
      }
 })()
 
 const displayController = (() => {
     
-    // DOM 'cache'
     const modal = document.querySelector('.modal-container')
     const winModal = document.querySelector('.modal-win-container')
+    const drawModal = document.querySelector('.modal-draw-container')
     const page = document.querySelector('#modal-wrapper')
     const playerOneInput = document.querySelector('#player-one')
     const playerTwoInput = document.querySelector('#player-two')
 
     gameBoard.renderDisplay()
-
-    const winningMessage = () => { // add to winning message
-        if (gamePiece === 'X') {
-            `Player ${playerOne} has won!`
-        } else if (gamePiece === 'O') {
-            `Player ${playerTwo} has won!`
-        }
-    }
-    const drawMessage = () => 'Game has ended in a draw'
 
     function setAndShowNames() {
         let playerOne = Player(playerOneInput.value)
@@ -130,11 +134,18 @@ const displayController = (() => {
     function showWinModal() {
         winModal.style.display = 'block'
         page.classList.add('blur-background')
+        gameBoard.winningMessage()
+    }
+    function showDrawModal() {
+        gameBoard.drawMessage()
+        drawModal.style.display = 'block'
+        page.classList.add('blur-background')
     }
     function modalCancel() {
         page.classList.remove('blur-background')
         modal.style.display = 'none'
         winModal.style.display = 'none'
+        drawModal.style.display = 'none'
         playerOneInput.value = ''
         playerTwoInput.value = ''
         document.querySelector('#error-handler').textContent = ''
@@ -147,7 +158,7 @@ const displayController = (() => {
             showPlayerModal()
         }
         if (e.target.matches('.close-button')) {
-            if (winModal.style.display = 'block') {
+            if (winModal.style.display == 'block' || drawModal.style.display == 'block') {
                 modalCancel()
                 gameBoard.clearBoard()
             } else {
@@ -166,12 +177,12 @@ const displayController = (() => {
         if (e.target == modal) {
             modalCancel()
         }
-        if (e.target == winModal) {
+        if (e.target == winModal || e.target == drawModal) {
             modalCancel()
             gameBoard.clearBoard()
         }
     })
     return {
-        showPlayerModal, showWinModal, modalCancel, setAndShowNames, winningMessage, drawMessage,
+        showPlayerModal, showWinModal, showDrawModal, modalCancel, setAndShowNames,
     }
 })()
