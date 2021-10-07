@@ -1,6 +1,6 @@
 # Tic Tac Toe #
 
-[Live Demo Coming Soon]()
+[Live Demo](https://pataskad.github.io/tic-tac-toe/)
 
 # Learning Outcomes #
 

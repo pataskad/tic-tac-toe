@@ -89,7 +89,7 @@ aside {
 }
 .modal-winner {
     margin: 100px auto;
-    padding: 15px;
+    padding: 15px 15px 30px 15px;
     width: 47%;  
     border: 2px solid red;
     box-shadow: 0px 0px 20px 3px rgba(0, 0, 0);
@@ -112,7 +112,7 @@ aside {
 }
 .modal-draw {
     margin: 100px auto;
-    padding: 15px;
+    padding: 15px 15px 30px 15px;
     width: 47%;  
     border: 2px solid red;
     box-shadow: 0px 0px 20px 3px rgba(0, 0, 0);
@@ -131,6 +131,26 @@ aside {
     height: 100%;
     overflow: auto;
     border: 1px solid darkgray;
+}
+#result-message {
+    margin-bottom: 30px;
+}
+#modal-restart-btn {
+    background-color: rgb(20, 130, 16);
+    border: 0.25px solid rgb(20, 130, 16);
+    border-radius: 5px;
+    padding: 5px;
+    color: white;
+    cursor: pointer;
+    margin-right: 5%;
+    float: right;
+}
+#modal-restart-btn:hover {
+    box-shadow: 0 0 5px 0 rgb(20, 130, 16)
+}
+#modal-restart-btn:active {
+    transform: translateY(2px);
+    transition: 0.25s;
 }
 .close-button {
     color: rgb(29, 29, 29);

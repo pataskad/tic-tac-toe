@@ -169,12 +169,12 @@ const displayController = (() => {
                 modalCancel()
             }
         }
-        if (e.target == modal) {
-            modalCancel()
-        }
-        if (e.target == winModal || e.target == drawModal) {
+        if (e.target.matches('#modal-restart-btn')) {
             modalCancel()
             gameBoard.clearBoard()
+        }
+        if (e.target == modal) {
+            modalCancel()
         }
     })
     return {
